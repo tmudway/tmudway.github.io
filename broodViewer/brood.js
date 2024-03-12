@@ -33,10 +33,12 @@ function genKeys(start = 0, end = 1, length = 1){
 }
 
 function getImages(key){
-    imgs = ["https://tmudway.github.io/broodViewer/images/base.png"]
+    imgs = []
     parts.forEach(function (part, i){
         imgs.push(`https://tmudway.github.io/broodViewer/images/${part}/${key.charAt(i)}.png`)
     })
+
+    imgs.splice(7, 0, "https://tmudway.github.io/broodViewer/images/base.png")
 
     return imgs
 }
