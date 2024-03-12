@@ -1,21 +1,12 @@
 <html>
     <head>
         <link rel="stylesheet" href="brood.css">
-        <script src="brood.js"></script>
+        <script type="module" src="brood.js"></script>
+        <script src="https://unpkg.com/merge-images"></script>
     </head>
     <body>
         <div class="main-container">
-            <div class = "imgWrapper">
-                <img src="https://tmudway.github.io/broodViewer/images/tail/a.png" class = "layerImg" id="tail"/>
-                <img src="https://tmudway.github.io/broodViewer/images/wing/a.png" class = "layerImg" id="wing"/>
-                <img src="https://tmudway.github.io/broodViewer/images/body/a.png" class = "layerImg" id="body"/>
-                <img src="https://tmudway.github.io/broodViewer/images/ears/a.png" class = "layerImg" id="ears"/>
-                <img src="https://tmudway.github.io/broodViewer/images/eyes/a.png" class = "layerImg" id="eyes"/>
-                <img src="https://tmudway.github.io/broodViewer/images/horns/a.png" class = "layerImg" id="horns"/>
-                <img src="https://tmudway.github.io/broodViewer/images/neck/a.png" class = "layerImg" id="neck"/>
-                <img src="https://tmudway.github.io/broodViewer/images/base.png" class = "layerImg" id="base"/>
-                <img src="https://tmudway.github.io/broodViewer/images/mouth/a.png" class = "layerImg" id="mouth"/>
-            </div>
+            <canvas id="dragonCanvas" width = '314' height = '296'></canvas>
         </div>
     </body>
 </html>

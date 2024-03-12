@@ -1,6 +1,8 @@
-
 const parts = ["tail", "wing", "body", "ears", "eyes", "horns", "neck", "mouth"]
 var keyData = new URLSearchParams(window.location.search)
+
+let canvas, ctx, imgs
+let imagesLoaded = 0
 
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -10,12 +12,11 @@ document.addEventListener('DOMContentLoaded', function() {
         keyData = genKeys(0, 1, 8)
     }
 
-    console.log(keyData)
+    let imgList = getImages(keyData)
+    canvas = document.getElementById("dragonCanvas")
+    ctx = canvas.getContext("2d")
+    imgs = imgList.map(img => loadImage(img, drawCanvas))
 
-    parts.forEach(function (key, i){
-        let elem = document.getElementById(key)
-        elem.src = `https://tmudway.github.io/broodViewer/images/${key}/${keyData.charAt(i)}.png`
-    })
 }, false);
 
 function genKeys(start = 0, end = 1, length = 1){
@@ -29,4 +30,29 @@ function genKeys(start = 0, end = 1, length = 1){
         i = i + 1
     }
     return str
+}
+
+function getImages(key){
+    imgs = ["https://tmudway.github.io/broodViewer/images/base.png"]
+    parts.forEach(function (part, i){
+        imgs.push(`https://tmudway.github.io/broodViewer/images/${part}/${key.charAt(i)}.png`)
+    })
+
+    return imgs
+}
+
+function drawCanvas() {
+    imagesLoaded += 1;
+    if (imagesLoaded === imgs.length) {
+        imgs.map(image => {
+            ctx.drawImage(image, 0, 0, 314, 296);
+        })
+    }
+}
+
+function loadImage(src, onload) {
+    const img = new Image();
+    img.onload = onload;
+    img.src = src;
+    return img;
 }
