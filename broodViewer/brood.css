@@ -1,0 +1,8 @@
+.dragon {
+    position: absolute;
+    top: 800px;
+}
+
+.flipped {
+    transform: rotateY(180deg)
+}

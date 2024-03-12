@@ -1,60 +1,54 @@
-const parts = ["tail", "wing", "body", "ears", "eyes", "horns", "neck", "mouth"]
 var keyData = new URLSearchParams(window.location.search)
-
-let canvas, ctx, imgs
-let imagesLoaded = 0
+import partConfig from "https://trithedragon.github.io/dragonmaker/config.js" 
 
 document.addEventListener('DOMContentLoaded', function() {
 
-    if (keyData.has('key')) {
-        keyData = keyData.get('key')
-    }else{
-        keyData = genKeys(0, 1, 8)
-    }
-
-    let imgList = getImages(keyData)
-    canvas = document.getElementById("dragonCanvas")
-    ctx = canvas.getContext("2d")
-    imgs = imgList.map(img => loadImage(img, drawCanvas))
+    //dragonGenInit()
+    dragonBounceInit()
 
 }, false);
 
-function genKeys(start = 0, end = 1, length = 1){
+function dragonGenInit(){
+    if (keyData.has('key')) {
+        keyData = keyData.get('key')
+    }else{
+        keyData = genKeys(getPartCount(), partConfig.parts.length)
+    }
+
+    loadCanvas(keyData, "dragonCanvas", partConfig.parts)
+}
+
+function dragonBounceInit(){
+
+    for (const wrapper of document.getElementsByClassName("dragonWrapper")){
+
+        let dragon = $(`#${wrapper.id}`).children('canvas')
+
+        dragon.width(100)
+        dragon.height(100)
+        dragon.css('left', `${Math.random() * (window.innerWidth - dragon.width())}px`)
+        loadCanvas(genKeys(getPartCount(), partConfig.parts.length), dragon.attr('id'), partConfig.parts)
+        newBounce($(`#${wrapper.id}`))
+    }
+}
+
+function getPartCount(){
+    let partCount = []
+    partConfig.parts.forEach(part => {
+        partCount.push(partConfig.count[part])
+    })
+    return partCount
+}
+
+function genKeys(size = [1], length = 1){
+    console.log(size)
     let str = ""
     let i = 0
     while (i < length){
-        console.log(str)
-        let n = Math.round((Math.random() * (end - start)) + start)
-        console.log(n)
-        str += String.fromCharCode(n + 97)
+        let n = Math.floor((Math.random() * size[i]))
+        str += String.fromCharCode(n + 65)
         i = i + 1
     }
+    console.log(str)
     return str
-}
-
-function getImages(key){
-    imgs = []
-    parts.forEach(function (part, i){
-        imgs.push(`https://tmudway.github.io/broodViewer/images/${part}/${key.charAt(i)}.png`)
-    })
-
-    imgs.splice(7, 0, "https://tmudway.github.io/broodViewer/images/base.png")
-
-    return imgs
-}
-
-function drawCanvas() {
-    imagesLoaded += 1;
-    if (imagesLoaded === imgs.length) {
-        imgs.map(image => {
-            ctx.drawImage(image, 0, 0, 314, 296);
-        })
-    }
-}
-
-function loadImage(src, onload) {
-    const img = new Image();
-    img.onload = onload;
-    img.src = src;
-    return img;
 }
