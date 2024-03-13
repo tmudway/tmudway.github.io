@@ -1,10 +1,10 @@
-function loadCanvas(keyData, colourData, id, partsConfig){
+function loadCanvas(keyData, colourData, element, partsConfig){
 
     let tempCanvas, canvas, ctx, imgs
     let imagesLoaded = 0
 
     let imgList = getImages(keyData)
-    canvas = document.getElementById(id)
+    canvas = element
 
     tempCanvas = document.createElement("canvas")
     tempCanvas.width = canvas.width
@@ -12,9 +12,6 @@ function loadCanvas(keyData, colourData, id, partsConfig){
     ctx = tempCanvas.getContext("2d")
 
     imgs = imgList.map(img => loadImage(img, drawCanvas))
-
-    
-    
 
     function getImages(key){
         imgs = []

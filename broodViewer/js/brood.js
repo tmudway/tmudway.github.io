@@ -3,6 +3,15 @@ var keyData = new URLSearchParams(window.location.search)
 
 document.addEventListener('DOMContentLoaded', function() {
 
+    let elem = document.querySelector("#bounceWrapper")
+    let container = document.querySelector(".main-container")
+
+    /*for(let i = 0; i < 5; i++){
+        let c = elem.cloneNode(true)
+        c.id = `dWrapper${i}`
+        container.appendChild(c)
+    }*/
+
     dragonBounceInit()
 
 }, false);
@@ -10,6 +19,39 @@ document.addEventListener('DOMContentLoaded', function() {
 window.addEventListener('unload', function () {
     document.documentElement.innerHTML = '';
 });
+
+document.addEventListener('keyup', function(k){
+
+    if (k.key != "+") return
+
+    let elem = document.querySelector("#baseWrapper")
+    let container = document.querySelector(".main-container")
+    let c = elem.cloneNode(true)
+
+    let name = genKeys(getPartCount(partConfig), partConfig.parts.length)
+    c.id = name
+
+    let dragon = c.getElementsByClassName('dragon')[0]
+    c.style.left = `${Math.random() * (window.innerWidth - dragon.width)}px`
+    c.style.top = '600px'
+
+    container.appendChild(c)
+
+    let newArrays = {
+        "PRIMARY" : [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)], 
+        "SECONDARY" : [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)],
+        "DETAILS" : [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)], 
+        "EYECOL" : [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)]
+    }
+
+    loadCanvas(name, newArrays, dragon, partConfig)
+    $(dragon).width(100)
+    $(dragon).height(100)
+    c.getElementsByTagName('p')[0].innerText = name[0] + name.slice(1).toLowerCase()
+
+    newBounce($(c))
+
+})
 
 function dragonBounceInit(){
 
@@ -19,20 +61,28 @@ function dragonBounceInit(){
 
         wrapper.style.left = `${Math.random() * (window.innerWidth - dragon.width)}px`
         wrapper.style.top = '600px'
-        let name = genKeys(getPartCount(partConfig), partConfig.parts.length)
 
-        let newArrays = {
-            "PRIMARY" : [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)], 
-            "SECONDARY" : [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)],
-            "DETAILS" : [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)], 
-            "EYECOL" : [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)]
+        let name, newArrays
+        if (wrapper.id = "baseWrapper"){
+            name = partConfig.defaultParts
+            newArrays = partConfig.colours
+            console.log(newArrays)
+            wrapper.getElementsByTagName('p')[0].innerText = "Bubblegum"
+        }else{
+            name = genKeys(getPartCount(partConfig), partConfig.parts.length)
+            newArrays = {
+                "PRIMARY" : [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)], 
+                "SECONDARY" : [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)],
+                "DETAILS" : [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)], 
+                "EYECOL" : [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)]
+            }
+            wrapper.getElementsByTagName('p')[0].innerText = name[0] + name.slice(1).toLowerCase()
         }
+        loadCanvas(name, newArrays, dragon, partConfig)
 
-        loadCanvas(name, newArrays, dragon.id, partConfig)
-
-        $(`#${dragon.id}`).width(100)
-        $(`#${dragon.id}`).height(100)
-        wrapper.getElementsByTagName('p')[0].innerText = name[0] + name.slice(1).toLowerCase()
+        $(dragon).width(100)
+        $(dragon).height(100)
+        
 
         newBounce($(`#${wrapper.id}`))
     }

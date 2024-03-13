@@ -74,7 +74,7 @@ function dragonGenInit(){
         cols[col] = c.map(function(v) { return parseInt(v, 16) })
     })
 
-    loadCanvas(keyData, cols, "dragonCanvas", partConfig)
+    loadCanvas(keyData, cols, document.getElementById("dragonCanvas"), partConfig)
     let t = document.getElementsByClassName("dragonWrapper")[0].getElementsByTagName('a')[0]
     t.href = `${window.location.href.split('?')[0]}?key=${keyData}`
     t.innerText = keyData[0] + keyData.slice(1).toLowerCase()
@@ -110,7 +110,7 @@ function genFromDropdown(){
         cols[col] = c.map(function(v) { return parseInt(v, 16) })
     })
 
-    loadCanvas(key, cols, "dragonCanvas", partConfig)
+    loadCanvas(key, cols, document.getElementById("dragonCanvas"), partConfig)
     let t = document.getElementsByClassName("dragonWrapper")[0].getElementsByTagName('a')[0]
     t.href = `${window.location.href.split('?')[0]}?key=${key}`
     t.innerText = key[0] + key.slice(1).toLowerCase()
