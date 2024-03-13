@@ -44,7 +44,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function dragonGenInit(){
     loadCanvas(keyData, "dragonCanvas", partConfig)
-    document.getElementsByClassName("dragonWrapper")[0].getElementsByTagName('p')[0].innerText = keyData[0] + keyData.slice(1).toLowerCase()
+    let t = document.getElementsByClassName("dragonWrapper")[0].getElementsByTagName('a')[0]
+    t.href = `${window.location.href.split('?')[0]}?key=${keyData}`
+    t.innerText = key[0] + keyData.slice(1).toLowerCase()
 }
 
 function genFromDropdown(){
@@ -55,6 +57,8 @@ function genFromDropdown(){
     })
 
     loadCanvas(key, "dragonCanvas", partConfig)
-    document.getElementsByClassName("dragonWrapper")[0].getElementsByTagName('p')[0].innerText = key[0] + key.slice(1).toLowerCase()
+    let t = document.getElementsByClassName("dragonWrapper")[0].getElementsByTagName('a')[0]
+    t.href = `${window.location.href.split('?')[0]}?key=${key}`
+    t.innerText = key[0] + key.slice(1).toLowerCase()
 
 }
