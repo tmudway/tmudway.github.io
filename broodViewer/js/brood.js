@@ -17,11 +17,18 @@ function dragonBounceInit(){
 
         let dragon = wrapper.getElementsByClassName('dragon')[0]
 
-        
         wrapper.style.left = `${Math.random() * (window.innerWidth - dragon.width)}px`
         wrapper.style.top = '600px'
         let name = genKeys(getPartCount(partConfig), partConfig.parts.length)
-        loadCanvas(name, dragon.id, partConfig)
+
+        let newArrays = {
+            "PRIMARY" : [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)], 
+            "SECONDARY" : [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)],
+            "DETAILS" : [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)], 
+            "EYES" : [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)]
+        }
+
+        loadCanvas(name, newArrays, dragon.id, partConfig)
 
         $(`#${dragon.id}`).width(100)
         $(`#${dragon.id}`).height(100)
