@@ -19,3 +19,7 @@
 .flipped {
     transform: rotateY(180deg)
 }
+
+body {
+    overflow: hidden; /* Hide scrollbars */
+  }

@@ -1,4 +1,4 @@
-function loadCanvas(keyData, id, partsConfig){
+function loadCanvas(keyData, colourData, id, partsConfig){
 
     let canvas, ctx, imgs
     let imagesLoaded = 0
@@ -42,14 +42,9 @@ function loadCanvas(keyData, id, partsConfig){
 
     function swapColours(){
         var imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
-        let replaceArrays = [[255, 114, 150], [255, 177, 197], [255, 187, 64], [255, 67, 53]]
-        let newArrays = [[Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)], 
-                         [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)],
-                         [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)], 
-                         [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)]]
 
-        replaceArrays.forEach(function (rArr, j){
-            
+        Object.keys(partsConfig.colours).forEach(function(key){
+            let rArr = partsConfig.colours[key]
             for (var i=0;i<imgData.data.length;i+=4){
                 // is this pixel the old rgb?
                 if(imgData.data[i]==rArr[0] &&
@@ -57,12 +52,14 @@ function loadCanvas(keyData, id, partsConfig){
                     imgData.data[i+2]==rArr[2]
                 ){                    
                     // change to your new rgb
-                    imgData.data[i]=newArrays[j][0];
-                    imgData.data[i+1]=newArrays[j][1];
-                    imgData.data[i+2]=newArrays[j][2];
+                    imgData.data[i]=colourData[key][0];
+                    imgData.data[i+1]=colourData[key][1];
+                    imgData.data[i+2]=colourData[key][2];
                 }
             }
         })
+            
+            
 
         ctx.putImageData(imgData, 0, 0)
         

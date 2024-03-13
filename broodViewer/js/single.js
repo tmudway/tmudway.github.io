@@ -1,5 +1,5 @@
 var keyData = new URLSearchParams(window.location.search)
-import partConfig from "https://trithedragon.github.io/dragonmaker/config.js" 
+//import partConfig from "https://trithedragon.github.io/dragonmaker/config.js" 
 
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -11,6 +11,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let form = document.getElementsByClassName("form")[0]
     let pCount = partConfig.count
+
+    Object.keys(partConfig.colours).forEach((col) => {
+        let l = document.createElement("label")
+        l.setAttribute("for", col)
+        l.innerHTML = col
+
+        let c = document.createElement("input")
+        c.type = "color"
+        c.id = col
+        c.onchange = function(){genFromDropdown()}
+
+        form.append(l)
+        form.append(c)
+    })
 
     partConfig.parts.forEach((part, pi) => {
         let l = document.createElement("label")
@@ -43,10 +57,18 @@ document.addEventListener('DOMContentLoaded', function() {
 }, false);
 
 function dragonGenInit(){
-    loadCanvas(keyData, "dragonCanvas", partConfig)
+
+    let newArrays = {
+        "PRIMARY" : [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)], 
+        "SECONDARY" : [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)],
+        "DETAILS" : [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)], 
+        "EYES" : [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)]
+    }
+
+    loadCanvas(keyData, newArrays, "dragonCanvas", partConfig)
     let t = document.getElementsByClassName("dragonWrapper")[0].getElementsByTagName('a')[0]
     t.href = `${window.location.href.split('?')[0]}?key=${keyData}`
-    t.innerText = key[0] + keyData.slice(1).toLowerCase()
+    t.innerText = keyData[0] + keyData.slice(1).toLowerCase()
 }
 
 function genFromDropdown(){
@@ -56,7 +78,16 @@ function genFromDropdown(){
         key += form.value
     })
 
-    loadCanvas(key, "dragonCanvas", partConfig)
+    let cols = {}
+
+    Object.keys(partConfig.colours).forEach((col) => {
+        let c = document.getElementById(col).value.match(/[A-Za-z0-9]{2}/g)
+        cols[col] = c.map(function(v) { return parseInt(v, 16) })
+    })
+
+    console.log(cols)
+
+    loadCanvas(key, cols, "dragonCanvas", partConfig)
     let t = document.getElementsByClassName("dragonWrapper")[0].getElementsByTagName('a')[0]
     t.href = `${window.location.href.split('?')[0]}?key=${key}`
     t.innerText = key[0] + key.slice(1).toLowerCase()

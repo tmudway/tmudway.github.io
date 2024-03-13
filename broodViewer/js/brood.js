@@ -1,5 +1,5 @@
 var keyData = new URLSearchParams(window.location.search)
-import partConfig from "https://trithedragon.github.io/dragonmaker/config.js" 
+//import partConfig from "https://trithedragon.github.io/dragonmaker/config.js" 
 
 document.addEventListener('DOMContentLoaded', function() {
 
