@@ -7,16 +7,21 @@ function bounce(dragonWrapper, i, dir, yVel){
 
 
     dragon = dragonWrapper.children('canvas')
-    dragon.css('z-index', Math.floor(dragon.position().top))
+    dragon.css('z-index', Math.floor(dragonWrapper.position().top))
 
     if (i >= 0){
         dragonWrapper.animate({top:[`-=${yVel}px`, 'linear'], left: [`+=${(dir * xVel)}px`, 'linear']}, 150);
         dragon.animate({rotate: ['-7deg', 'linear']}, 25)
-        .animate({top: [`-=${jumpHeight}px`, 'easeOutSine']}, 50)
-        .animate({rotate: ['7deg', 'linear']}, 25)
-        .animate({top: [`+=${jumpHeight}px`, 'easeInSine']}, 50)
+        dragon.animate({top: [`-=${jumpHeight}px`, 'easeOutSine']}, 50)
+        dragon.animate({rotate: ['7deg', 'linear']}, 25)
+        dragon.animate({top: [`+=${jumpHeight}px`, 'easeInSine']},{
+            duration: 50,
+            complete: (function(){
+                bounce(dragonWrapper, i - 1, dir, yVel)
+            })
+        })
         
-        setTimeout(function(){bounce(dragonWrapper, i - 1, dir, yVel)}, 170)
+        //setTimeout(function(){bounce(dragonWrapper, i - 1, dir, yVel)}, 170)
     }else{
         dragon.animate({rotate: ['0deg', 'linear']}, 25)
         let t = Math.random() * 10000
@@ -32,7 +37,7 @@ function newBounce(dragonWrapper){
     let xTarget = Math.random() * room
     let nBounce = Math.floor((xTarget - dragonWrapper.position().left)  / xVel)
 
-    let height = window.innerHeight - dragon.height() * 1.25
+    let height = window.innerHeight - dragonWrapper.height() * 1.25
     let yTop = height - dragon.height()
     let yTarget = height - (Math.random() * (height - yTop)) 
     let yVel = Math.max(Math.min((dragonWrapper.position().top - yTarget) / Math.abs(nBounce), yMaxVel), -1 * yMaxVel)
