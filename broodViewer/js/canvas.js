@@ -25,8 +25,9 @@ function loadCanvas(keyData, id, partsConfig){
             imgs.map(image => {
                 ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
             })
+            swapColours()
         }
-        swapColours()
+        
     }
 
     function loadImage(src, onload) {

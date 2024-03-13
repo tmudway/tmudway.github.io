@@ -1,6 +1,19 @@
-.dragon {
+.dragonWrapper {
     position: absolute;
-    top: 600px;
+    text-align: center;
+}
+
+.dragon {
+    position: relative;
+    top: 15px;
+    left: 0px
+}
+
+.dragonName {
+    position: relative;
+    top: 110%;
+    width: 100%;
+    text-align: center;
 }
 
 .flipped {
