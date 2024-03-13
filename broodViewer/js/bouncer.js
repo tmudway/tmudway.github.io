@@ -7,7 +7,7 @@ function bounce(dragonWrapper, i, dir, yVel){
 
 
     dragon = dragonWrapper.children('canvas')
-    dragon.css('z-index', Math.floor(dragonWrapper.position().top))
+    dragonWrapper.css('z-index', Math.floor(dragonWrapper.position().top))
 
     if (i >= 0){
         dragonWrapper.animate({top:[`-=${yVel}px`, 'linear'], left: [`+=${(dir * xVel)}px`, 'linear']}, 150);

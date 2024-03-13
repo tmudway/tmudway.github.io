@@ -1,3 +1,10 @@
+.dragonName {
+    position: relative;
+    top: 110%;
+    width: 100%;
+    text-align: center;
+}
+
 .form{
     width: 200px;
     float: left;
@@ -17,4 +24,3 @@ select {
 a {
     font-size: 32px;
 }
-
