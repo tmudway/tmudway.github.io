@@ -51,7 +51,7 @@ function genKeys(size = [1], length = 1){
         if (n <= 26){
             str += String.fromCharCode(n + 65)
         }else{
-            str += String.fromCharCode(n + 21)
+            str += String.fromCharCode(n + 22)
         }
         i = i + 1
     }
