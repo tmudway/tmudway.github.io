@@ -1,6 +1,9 @@
 var keyData = new URLSearchParams(window.location.search)
 //import partConfig from "https://trithedragon.github.io/dragonmaker/config.js" 
 
+const genRanHex = size => [...Array(size)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
+
+
 document.addEventListener('DOMContentLoaded', function() {
 
     if (keyData.has('key')) {
@@ -22,6 +25,8 @@ document.addEventListener('DOMContentLoaded', function() {
         c.id = col
         c.onchange = function(){genFromDropdown()}
 
+        c.value = "#" + genRanHex(6)
+        console.log(c.value)
         form.append(l)
         form.append(c)
     })
@@ -51,24 +56,44 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById(part).value = keyData[pi]
     });
 
+    let b = document.createElement("button")
+    b.textContent = "RANDOM"
+    b.onclick = function(){genNew()}
+    form.appendChild(b)
+
     dragonGenInit()
 
 
 }, false);
 
 function dragonGenInit(){
+    let cols = {}
 
-    let newArrays = {
-        "PRIMARY" : [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)], 
-        "SECONDARY" : [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)],
-        "DETAILS" : [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)], 
-        "EYES" : [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)]
-    }
+    Object.keys(partConfig.colours).forEach((col) => {
+        let c = document.getElementById(col).value.match(/[A-Za-z0-9]{2}/g)
+        cols[col] = c.map(function(v) { return parseInt(v, 16) })
+    })
 
-    loadCanvas(keyData, newArrays, "dragonCanvas", partConfig)
+    loadCanvas(keyData, cols, "dragonCanvas", partConfig)
     let t = document.getElementsByClassName("dragonWrapper")[0].getElementsByTagName('a')[0]
     t.href = `${window.location.href.split('?')[0]}?key=${keyData}`
     t.innerText = keyData[0] + keyData.slice(1).toLowerCase()
+}
+
+function genNew(){
+
+    let sel = document.getElementsByTagName("select")
+    Array.from(sel).forEach((s) => {
+        s.value = s.children[(Math.floor(Math.random() * s.children.length))].value
+    })
+
+    let col = document.getElementsByTagName("input")
+    Array.from(col).forEach((c) => {
+        c.value = "#" + genRanHex(6)
+    })
+
+    genFromDropdown()
+        
 }
 
 function genFromDropdown(){
@@ -84,8 +109,6 @@ function genFromDropdown(){
         let c = document.getElementById(col).value.match(/[A-Za-z0-9]{2}/g)
         cols[col] = c.map(function(v) { return parseInt(v, 16) })
     })
-
-    console.log(cols)
 
     loadCanvas(key, cols, "dragonCanvas", partConfig)
     let t = document.getElementsByClassName("dragonWrapper")[0].getElementsByTagName('a')[0]
