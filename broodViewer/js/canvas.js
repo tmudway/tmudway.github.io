@@ -1,14 +1,19 @@
 function loadCanvas(keyData, colourData, id, partsConfig){
 
-    let canvas, ctx, imgs
+    let tempCanvas, canvas, ctx, imgs
     let imagesLoaded = 0
 
     let imgList = getImages(keyData)
     canvas = document.getElementById(id)
-    ctx = canvas.getContext("2d")
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+    tempCanvas = document.createElement("canvas")
+    tempCanvas.width = canvas.width
+    tempCanvas.height = canvas.height
+    ctx = tempCanvas.getContext("2d")
 
     imgs = imgList.map(img => loadImage(img, drawCanvas))
+
+    
     
 
     function getImages(key){
@@ -24,10 +29,15 @@ function loadCanvas(keyData, colourData, id, partsConfig){
     function drawCanvas() {
         imagesLoaded += 1;
         if (imagesLoaded === imgs.length) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
             imgs.map(image => {
                 ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
             })
             swapColours()
+
+            let finalCtx = canvas.getContext("2d")
+            finalCtx.clearRect(0, 0, canvas.width, canvas.height)
+            finalCtx.drawImage(tempCanvas, 0, 0, canvas.width, canvas.height)
         }
         
     }
@@ -59,8 +69,6 @@ function loadCanvas(keyData, colourData, id, partsConfig){
             }
         })
             
-            
-
         ctx.putImageData(imgData, 0, 0)
         
     }
