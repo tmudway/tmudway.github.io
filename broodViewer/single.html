@@ -1,21 +1,27 @@
 <!DOCTYPE html>
     <head>
-        <link rel="stylesheet" href="brood.css">
+        <link rel="stylesheet" href="styles/brood.css">
+        <link rel="stylesheet" href="styles/single.css">
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+        <script type="text/javascript" src="js/util.js"></script>
         <script type="text/javascript" src="js/canvas.js"></script>
-        <script type="module" src="brood.js"></script>
-        <script src="js/bouncer.js"></script>
+        <script type="module" src="js/single.js"></script>
 
         <meta http-equiv='cache-control' content='no-cache'> 
         <meta http-equiv='expires' content='0'> 
         <meta http-equiv='pragma' content='no-cache'> 
     </head>
     <body>
-        <div class="main-container">
-            <div id="dWrapper" class="dragonWrapper">
-                <canvas id="dragonCanvas" width = '800' height = '800' class="dragon"></canvas>
-                <div class="dragonName"><p>Test</p></div>
+        <div style="float: left; overflow: auto;">
+            <div class="form" id="partForm">
+
+            </div>
+            <div class="main-container" style="float: right;">
+                <div id="dWrapper" class="dragonWrapper">
+                    <canvas id="dragonCanvas" width = '800' height = '800' class="dragon"></canvas>
+                    <div class="dragonName"><p>Test</p></div>
+                </div>
             </div>
         </div>
     </body>

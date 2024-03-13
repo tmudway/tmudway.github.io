@@ -1,0 +1,11 @@
+.form{
+    width: 200px;
+    float: left;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+}
+
+select {
+    margin-bottom: 10px
+}

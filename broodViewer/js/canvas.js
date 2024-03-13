@@ -6,6 +6,8 @@ function loadCanvas(keyData, id, partsConfig){
     let imgList = getImages(keyData)
     canvas = document.getElementById(id)
     ctx = canvas.getContext("2d")
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+
     imgs = imgList.map(img => loadImage(img, drawCanvas))
     
 
