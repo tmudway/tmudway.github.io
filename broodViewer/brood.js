@@ -47,8 +47,12 @@ function genKeys(size = [1], length = 1){
     let str = ""
     let i = 0
     while (i < length){
-        let n = Math.floor((Math.random() * Math.min(size[i], 26)))
-        str += String.fromCharCode(n + 65)
+        let n = Math.floor((Math.random() * size[i]))
+        if (n <= 26){
+            str += String.fromCharCode(n + 65)
+        }else{
+            str += String.fromCharCode(n + 21)
+        }
         i = i + 1
     }
     console.log(str)
