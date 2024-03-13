@@ -8,6 +8,10 @@
     text-align: center;
 }
 
+.base{
+    display: none
+}
+
 .dragon {
     position: relative;
     top: 0px;
@@ -34,4 +38,13 @@ p {
     margin-top: 0px;
     text-shadow: -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
     user-select: none;
+}
+
+h1{
+    text-shadow: -1px -1px 0 rgb(0, 0, 0), 1px -1px 0 rgb(0, 0, 0), -1px 1px 0 rgb(0, 0, 0), 1px 1px 0 rgb(0, 0, 0);
+    text-align: center;
+    font-family: dragonFont;
+    font-weight: 100;
+    color: rgb(255, 114, 151);
+    font-size: 72px;
 }

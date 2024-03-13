@@ -8,10 +8,15 @@
         <script type="text/javascript" src="js/canvas.js"></script>
         <script type="module" src="js/brood.js"></script>
         <script src="js/bouncer.js"></script>
+        <h1>Press D to spawn more dragons</h1>
     </head>
     <body>
         <div class="main-container">
-            <div id="baseWrapper" class="dragonWrapper">
+            <div id="hiddenWrapper" class="dragonWrapper base">
+                <canvas width = '800' height = '800' class="dragon"></canvas>
+                <div class="dragonName"><p>Test</p></div>
+            </div>
+            <div id="bubblegum" class="dragonWrapper">
                 <canvas width = '800' height = '800' class="dragon"></canvas>
                 <div class="dragonName"><p>Test</p></div>
             </div>
