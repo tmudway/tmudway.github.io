@@ -31,8 +31,8 @@ function newBounce(dragonWrapper){
     let xTarget = Math.random() * room
     let nBounce = Math.floor((xTarget- dragon.position().left)  / xVel)
 
-    let height = window.innerHeight - dragon.height() - 5
-    let yTop = height - dragon.height() / 4
+    let height = window.innerHeight - dragon.height() * 1.25
+    let yTop = height - dragon.height()
     let yTarget = height - (Math.random() * (height - yTop)) 
     let yVel = Math.max(Math.min((dragon.position().top - yTarget) / Math.abs(nBounce), yMaxVel), -1 * yMaxVel)
 

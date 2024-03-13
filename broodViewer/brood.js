@@ -15,7 +15,7 @@ function dragonGenInit(){
         keyData = genKeys(getPartCount(), partConfig.parts.length)
     }
 
-    loadCanvas(keyData, "dragonCanvas", partConfig.parts)
+    loadCanvas(keyData, "dragonCanvas", partConfig)
 }
 
 function dragonBounceInit(){
@@ -24,10 +24,12 @@ function dragonBounceInit(){
 
         let dragon = $(`#${wrapper.id}`).children('canvas')
 
-        dragon.width(100)
-        dragon.height(100)
+        
         dragon.css('left', `${Math.random() * (window.innerWidth - dragon.width())}px`)
-        loadCanvas(genKeys(getPartCount(), partConfig.parts.length), dragon.attr('id'), partConfig.parts)
+        loadCanvas(genKeys(getPartCount(), partConfig.parts.length), dragon.attr('id'), partConfig)
+        dragon.width(300)
+        dragon.height(300)
+
         newBounce($(`#${wrapper.id}`))
     }
 }
@@ -45,7 +47,7 @@ function genKeys(size = [1], length = 1){
     let str = ""
     let i = 0
     while (i < length){
-        let n = Math.floor((Math.random() * size[i]))
+        let n = Math.floor((Math.random() * Math.min(size[i], 26)))
         str += String.fromCharCode(n + 65)
         i = i + 1
     }
