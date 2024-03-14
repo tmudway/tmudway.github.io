@@ -24,14 +24,14 @@ window.addEventListener('onEventReceived', function (obj) {
     }
 })
 
-document.addEventListener('keyup', function(k){
+window.addEventListener('keyup', function(k){
     if (k.key != "d") return
     let key = genKeys(getPartCount(partConfig), partConfig.parts.length)
     genNewDragon(key, key)
 })
 
 function initBubblegum(){
-    let wrapper = document.getElementById("bubblegum")
+    let wrapper = window.getElementById("bubblegum")
     let dragon = wrapper.getElementsByClassName('dragon')[0]
 
     wrapper.style.left = `${(window.innerWidth / 2)}px`

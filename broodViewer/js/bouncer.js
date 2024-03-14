@@ -18,9 +18,9 @@ function bounce(dragonWrapper, i, dir, yVel){
         }
         
         dragonWrapper.animate({top:[`-=${yVel}px`, 'linear'], left: [`+=${(dir * xVel)}px`, 'linear']}, 150);
-        dragon.animate({top: [`-=${jumpHeight}px`, 'easeOutSine']}, 75)
+        dragon.animate({top: [`-=${jumpHeight}px`, 'easeOutSine']}, 80)
         dragon.animate({top: [`+=${jumpHeight}px`, 'easeInSine']},{
-            duration: 75,
+            duration: 80,
             complete: (function(){
                 bounce(dragonWrapper, i - 1, dir, yVel)
             })
