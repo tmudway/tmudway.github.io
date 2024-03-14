@@ -1,6 +1,6 @@
 @font-face {
     font-family: dragonFont;
-    src: url(https://trithedragon.github.io/dragonmaker/Dragon-Regular.ttf);
+    src: url(https://trithedragon.github.io/dragonmaker/Encyclopedia-Regular.ttf);
   }
 
 .dragonWrapper {
@@ -15,29 +15,28 @@
 .dragon {
     position: relative;
     top: 0px;
-    left: 0px
+    left: 0px;
+    --zRot: 0deg;
+    --yRot: 0deg;
+    transform: rotateY(var(--yRot)) rotateZ(var(--zRot))
 }
 
 .dragonName {
-    position: absolute;
-    top: -25px;
+    position: relative;
+    top: -130px;
     text-align: center;
 }
 
-.animateUp {
-    transform: rotateZ(10deg)
+.dragon.animateUp {
+    --zRot: 10deg;
 }
 
-.animateDown {
-    transform: rotateZ(-10deg)
+.dragon.animateDown {
+    --zRot: -10deg;
 }
 
- .flipped.animateUp{
-    transform: rotateY(180deg) rotateZ(-10deg)
-}
-
-.flipped.animateDown{
-    transform: rotateY(180deg) rotateZ(10deg)
+.dragon.flipped {
+    --yRot: 180deg;
 }
 
 body {
@@ -46,7 +45,7 @@ body {
 
 p {
     font-family: dragonFont;
-    font-size: 24px;
+    font-size: 20px;
     margin-top: 0px;
     text-shadow: -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
     user-select: none;

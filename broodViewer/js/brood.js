@@ -31,7 +31,7 @@ window.addEventListener('keyup', function(k){
 })
 
 function initBubblegum(){
-    let wrapper = window.getElementById("bubblegum")
+    let wrapper = document.getElementById("bubblegum")
     let dragon = wrapper.getElementsByClassName('dragon')[0]
 
     wrapper.style.left = `${(window.innerWidth / 2)}px`
@@ -44,8 +44,10 @@ function initBubblegum(){
 
     $(dragon).width(100)
     $(dragon).height(100)
-        
-    newBounce($(wrapper))
+
+    addDragonDragging(wrapper)
+    
+    setTimeout(function(){newBounce($(wrapper))}, Math.random() * 5000)
 }
 
 function genNewDragon(key, name){
@@ -75,5 +77,59 @@ function genNewDragon(key, name){
 
     c.getElementsByTagName('p')[0].innerText = name[0] + name.slice(1).toLowerCase()
 
-    newBounce($(c))
+    addDragonDragging(c)
+
+    setTimeout(function(){newBounce($(c))}, Math.random() * 5000)
+}
+
+function addDragonDragging(wrapper){
+
+    let dragon = wrapper.getElementsByClassName('dragon')[0]
+
+    wrapper.addEventListener("mousedown", function(event){
+
+        $(dragon).addClass("drag")
+        wrapper.style.zIndex = 1000000
+
+        function moveAt(pX, pY){
+            wrapper.style.left = pX - wrapper.offsetWidth / 2 + 'px';
+            wrapper.style.top = pY - wrapper.offsetHeight / 2 + 'px';
+        }
+
+        moveAt(event.pageX, event.pageY)
+
+        function onMouseMove(event){
+            moveAt(event.pageX, event.pageY)
+        }
+
+        document.addEventListener("mousemove", onMouseMove);
+
+        function wiggle(){
+            if ($(dragon).hasClass('animateUp')){
+                $(dragon).removeClass('animateUp').addClass('animateDown')
+            }else{
+                $(dragon).removeClass('animateDown').addClass('animateUp')
+            }
+        }
+
+        function flip(){
+            if ($(dragon).hasClass('flipped')){
+                $(dragon).removeClass('flipped')
+            }else{
+                $(dragon).addClass('flipped')
+            }
+        }
+
+        let wInterval = setInterval(wiggle, 70)
+        let fInterval = setInterval(flip, 1000 + Math.floor(Math.random() * 1000))
+
+        wrapper.onmouseup = function(){
+            document.removeEventListener("mousemove", onMouseMove);
+            wrapper.onmouseup = null
+            clearInterval(wInterval)
+            clearInterval(fInterval)
+            $(dragon).removeClass("drag").removeClass('animateUp').removeClass('animateDown')
+            wrapper.style.zIndex = wrapper.style.top
+        }
+    })
 }

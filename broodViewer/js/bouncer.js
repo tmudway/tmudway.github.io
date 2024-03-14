@@ -5,8 +5,13 @@ const yMaxVel = 10
 
 function bounce(dragonWrapper, i, dir, yVel){
 
-
     dragon = dragonWrapper.children('canvas')
+    
+    if (dragon.hasClass("drag")){
+        setTimeout(function(){newBounce(dragonWrapper)}, Math.random() * 10000)
+        return
+    }
+
     dragonWrapper.css('z-index', Math.floor(dragonWrapper.position().top))
 
     if (i >= 0){
@@ -51,5 +56,5 @@ function newBounce(dragonWrapper){
         dragon.removeClass("flipped")
     }
 
-    setTimeout(function(){bounce(dragonWrapper, Math.abs(nBounce), Math.sign(nBounce), yVel)}, Math.random() * 5000) 
+    bounce(dragonWrapper, Math.abs(nBounce), Math.sign(nBounce), yVel) 
 }
