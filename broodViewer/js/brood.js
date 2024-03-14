@@ -88,7 +88,7 @@ function addDragonDragging(wrapper){
 
     wrapper.addEventListener("mousedown", function(event){
 
-        $(dragon).addClass("drag")
+        dragon.classList.add("drag")
         wrapper.style.zIndex = 1000000
 
         function moveAt(pX, pY){
@@ -105,18 +105,20 @@ function addDragonDragging(wrapper){
         document.addEventListener("mousemove", onMouseMove);
 
         function wiggle(){
-            if ($(dragon).hasClass('animateUp')){
-                $(dragon).removeClass('animateUp').addClass('animateDown')
+            if (dragon.classList.contains('animateUp')){
+                dragon.classList.remove('animateUp')
+                dragon.classList.add('animateDown')
             }else{
-                $(dragon).removeClass('animateDown').addClass('animateUp')
+                dragon.classList.remove('animateDown')
+                dragon.classList.add('animateUp')
             }
         }
 
         function flip(){
-            if ($(dragon).hasClass('flipped')){
-                $(dragon).removeClass('flipped')
+            if (dragon.classList.contains('flipped')){
+                dragon.classList.remove('flipped')
             }else{
-                $(dragon).addClass('flipped')
+                dragon.classList.add('flipped')
             }
         }
 
@@ -128,7 +130,9 @@ function addDragonDragging(wrapper){
             wrapper.onmouseup = null
             clearInterval(wInterval)
             clearInterval(fInterval)
-            $(dragon).removeClass("drag").removeClass('animateUp').removeClass('animateDown')
+            dragon.classList.remove("drag")
+            dragon.classList.remove('animateUp')
+            dragon.classList.remove('animateDown')
             wrapper.style.zIndex = wrapper.style.top
         }
     })
