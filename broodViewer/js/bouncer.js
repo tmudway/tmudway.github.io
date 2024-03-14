@@ -10,20 +10,23 @@ function bounce(dragonWrapper, i, dir, yVel){
     dragonWrapper.css('z-index', Math.floor(dragonWrapper.position().top))
 
     if (i >= 0){
+
+        if (dragon.hasClass('animateUp')){
+            dragon.removeClass('animateUp').addClass('animateDown')
+        }else{
+            dragon.removeClass('animateDown').addClass('animateUp')
+        }
+        
         dragonWrapper.animate({top:[`-=${yVel}px`, 'linear'], left: [`+=${(dir * xVel)}px`, 'linear']}, 150);
-        dragon.animate({rotate: ['-7deg', 'linear']}, 25)
-        dragon.animate({top: [`-=${jumpHeight}px`, 'easeOutSine']}, 50)
-        dragon.animate({rotate: ['7deg', 'linear']}, 25)
+        dragon.animate({top: [`-=${jumpHeight}px`, 'easeOutSine']}, 75)
         dragon.animate({top: [`+=${jumpHeight}px`, 'easeInSine']},{
-            duration: 50,
+            duration: 75,
             complete: (function(){
                 bounce(dragonWrapper, i - 1, dir, yVel)
             })
         })
-        
-        //setTimeout(function(){bounce(dragonWrapper, i - 1, dir, yVel)}, 170)
     }else{
-        dragon.animate({rotate: ['0deg', 'linear']}, 25)
+        dragon.removeClass('animateDown').removeClass('animateUp')
         let t = Math.random() * 10000
         setTimeout(function(){newBounce(dragonWrapper)}, t)
     }

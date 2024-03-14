@@ -24,8 +24,20 @@
     text-align: center;
 }
 
-.flipped {
-    transform: rotateY(180deg)
+.animateUp {
+    transform: rotateZ(10deg)
+}
+
+.animateDown {
+    transform: rotateZ(-10deg)
+}
+
+ .flipped.animateUp{
+    transform: rotateY(180deg) rotateZ(-10deg)
+}
+
+.flipped.animateDown{
+    transform: rotateY(180deg) rotateZ(10deg)
 }
 
 body {

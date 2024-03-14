@@ -3,35 +3,58 @@ var keyData = new URLSearchParams(window.location.search)
 
 document.addEventListener('DOMContentLoaded', function() {
 
-    let elem = document.querySelector("#hiddenWrapper")
-    let container = document.querySelector(".main-container")
+    initBubblegum()
 
     /*for(let i = 0; i < 5; i++){
-        let c = elem.cloneNode(true)
-        c.classList.remove("base")
-        c.id = `dWrapper${i}`
-        container.appendChild(c)
+        let key = genKeys(getPartCount(partConfig), partConfig.parts.length)
+        genNewDragon(key, key)
     }*/
-
-    dragonBounceInit()
 
 }, false);
 
-window.addEventListener('unload', function () {
-    document.documentElement.innerHTML = '';
-});
+window.addEventListener('onEventReceived', function (obj) {
+
+    const listener = obj.detail.listener.split("-")[0]
+    const event = obj.detail.event
+    console.log(event)
+
+    if (listener === 'follower'){
+        let key = genKeys(getPartCount(partConfig), partConfig.parts.length)
+        genNewDragon(key, event.name)
+    }
+})
 
 document.addEventListener('keyup', function(k){
-
     if (k.key != "d") return
+    let key = genKeys(getPartCount(partConfig), partConfig.parts.length)
+    genNewDragon(key, key)
+})
 
+function initBubblegum(){
+    let wrapper = document.getElementById("bubblegum")
+    let dragon = wrapper.getElementsByClassName('dragon')[0]
+
+    wrapper.style.left = `${(window.innerWidth / 2)}px`
+    wrapper.style.top = '800px'
+
+    let name = partConfig.defaultParts
+    let newArrays = partConfig.colours
+    wrapper.getElementsByTagName('p')[0].innerText = "Bubblegum"
+    loadCanvas(name, newArrays, dragon, partConfig)
+
+    $(dragon).width(100)
+    $(dragon).height(100)
+        
+    newBounce($(wrapper))
+}
+
+function genNewDragon(key, name){
     let elem = document.querySelector("#hiddenWrapper")
     let container = document.querySelector(".main-container")
     let c = elem.cloneNode(true)
     c.classList.remove("base")
 
-    let name = genKeys(getPartCount(partConfig), partConfig.parts.length)
-    c.id = name
+    c.id = key
 
     let dragon = c.getElementsByClassName('dragon')[0]
     c.style.left = `${Math.random() * (window.innerWidth - 100)}px`
@@ -46,48 +69,11 @@ document.addEventListener('keyup', function(k){
         "EYECOL" : [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)]
     }
 
-    loadCanvas(name, newArrays, dragon, partConfig)
+    loadCanvas(key, newArrays, dragon, partConfig)
     $(dragon).width(100)
     $(dragon).height(100)
+
     c.getElementsByTagName('p')[0].innerText = name[0] + name.slice(1).toLowerCase()
 
     newBounce($(c))
-
-})
-
-function dragonBounceInit(){
-
-    for (const wrapper of document.getElementsByClassName("dragonWrapper")){
-
-        if (wrapper.classList.contains("base")) continue
-
-        let dragon = wrapper.getElementsByClassName('dragon')[0]
-
-        wrapper.style.left = `${(window.innerWidth / 2)}px`
-        wrapper.style.top = '800px'
-
-        let name, newArrays
-        if (wrapper.id = "bubblegum"){
-            name = partConfig.defaultParts
-            newArrays = partConfig.colours
-            console.log(newArrays)
-            wrapper.getElementsByTagName('p')[0].innerText = "Bubblegum"
-        }else{
-            name = genKeys(getPartCount(partConfig), partConfig.parts.length)
-            newArrays = {
-                "PRIMARY" : [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)], 
-                "SECONDARY" : [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)],
-                "DETAILS" : [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)], 
-                "EYECOL" : [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)]
-            }
-            wrapper.getElementsByTagName('p')[0].innerText = name[0] + name.slice(1).toLowerCase()
-        }
-        loadCanvas(name, newArrays, dragon, partConfig)
-
-        $(dragon).width(100)
-        $(dragon).height(100)
-        
-
-        newBounce($(`#${wrapper.id}`))
-    }
 }
