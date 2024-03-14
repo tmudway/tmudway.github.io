@@ -11,12 +11,10 @@ function genKeys(size = [1], length = 1){
     let i = 0
     while (i < length){
         let n = Math.floor((Math.random() * size[i]))
-        if (n < 26){
-            str += String.fromCharCode(n + 65)
-        }else{
-            str += String.fromCharCode(n + 23)
-        }
+        str += n.toString(16).padStart(2, "0")
         i = i + 1
     }
-    return str
+    return str.toUpperCase()
 }
+
+const genRanHex = size => [...Array(size)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');

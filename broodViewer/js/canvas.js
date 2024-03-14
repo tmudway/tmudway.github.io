@@ -15,8 +15,9 @@ function loadCanvas(keyData, colourData, element, partsConfig){
 
     function getImages(key){
         imgs = []
+        console.log(key)
         partsConfig.parts.forEach(function (part, i){
-            imgs.push(`https://trithedragon.github.io/dragonmaker/${part}/${key.charAt(i)}.png`)
+            imgs.push(`https://trithedragon.github.io/dragonmaker/parts/${part}/${key.substr(i*2, 2)}.png`)
         })
 
         imgs.splice(6, 0, "https://trithedragon.github.io/dragonmaker/JAW.png")

@@ -1,8 +1,4 @@
 var keyData = new URLSearchParams(window.location.search)
-//import partConfig from "https://trithedragon.github.io/dragonmaker/config.js" 
-
-const genRanHex = size => [...Array(size)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
-
 
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -39,27 +35,27 @@ document.addEventListener('DOMContentLoaded', function() {
         let s = document.createElement("select")
         s.id = part
         for (let i = 0; i < pCount[part]; i++){
-            let cha
-            if (i < 26){
-                cha = String.fromCharCode(i + 65)
-            }else{
-                cha = String.fromCharCode(i + 23)
-            }
+            let cha = i.toString(16).padStart(2, "0").toUpperCase()
             s.options.add(new Option(cha, cha))
         }
-        s.value = keyData[pi]
+        console.log(keyData)
+        console.log(keyData.substr(pi*2, 2))
+        s.value = keyData.substr(pi*2, 2)
         s.onchange = function(){genFromDropdown()}
         
         form.appendChild(l)
         form.appendChild(s)
 
-        document.getElementById(part).value = keyData[pi]
+        document.getElementById(part).value = keyData.substr(pi*2, 2)
     });
 
     let b = document.createElement("button")
     b.textContent = "RANDOM"
     b.onclick = function(){genNew()}
     form.appendChild(b)
+
+    $("#dragonCanvas").width(500)
+    $("#dragonCanvas").height(500)
 
     dragonGenInit()
 
