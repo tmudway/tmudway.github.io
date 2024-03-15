@@ -16,7 +16,6 @@ window.addEventListener('onEventReceived', function (obj) {
 
     const listener = obj.detail.listener.split("-")[0]
     const event = obj.detail.event
-    console.log(event)
 
     if (listener === 'follower'){
         let key = genKeys(getPartCount(partConfig), partConfig.parts.length)
@@ -64,12 +63,10 @@ function genNewDragon(key, name){
 
     container.appendChild(c)
 
-    let newArrays = {
-        "PRIMARY" : [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)], 
-        "SECONDARY" : [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)],
-        "DETAILS" : [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)], 
-        "EYECOL" : [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)]
-    }
+    let newArrays = {}
+    Object.keys(partConfig.colours).forEach(function(k){
+        newArrays[k] = [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)]
+    })
 
     loadCanvas(key, newArrays, dragon, partConfig)
     $(dragon).width(100)
