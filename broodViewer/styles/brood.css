@@ -39,10 +39,6 @@
     --yRot: 180deg;
 }
 
-body {
-    overflow: hidden; /* Hide scrollbars */
-  }
-
 p {
     font-family: dragonFont;
     font-size: 20px;

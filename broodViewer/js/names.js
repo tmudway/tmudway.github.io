@@ -19,6 +19,5 @@ const dragonNames = [
     "Zyrixis", "Eldrathor", "Aurorath", "Nyxaroth", "Xylixis", "Verorath", "Zarathos", "Sylphoria", "Aerionis", "Thalorius",
     "Voraxius", "Zylerian", "Valoria", "Zephyron", "Aurithrax", "Nyxorath", "Xyphorax", "Verathor", "Zaraxia", "Sylphorax",
     "Drakorian", "Aerithor", "Voraxian", "Zephyria", "Aurorix", "Nyxaria", "Xyloria", "Verithor", "Zarathia", "Sylphoria",
-    "Thalorian", "Vorathia", "Zyphoria", "Aurius", "Nyxon", "Xypharion", "Vermorius", "Zaraxor", "Sylphion", "Aerithia", 
-    "Michael Jonathan Fredrick Fredrickson Sr Sr Jr Sr Jr Jr Jr Jr Sr Jr III"
+    "Thalorian", "Vorathia", "Zyphoria", "Aurius", "Nyxon", "Xypharion", "Vermorius", "Zaraxor", "Sylphion", "Aerithia", "Michael Jonathan Fredrick Fredrickson Sr Sr Jr Sr Jr Jr Jr Jr Sr Jr III"
   ];
