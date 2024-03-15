@@ -26,7 +26,7 @@ window.addEventListener('onEventReceived', function (obj) {
 window.addEventListener('keyup', function(k){
     if (k.key != "d") return
     let key = genKeys(getPartCount(partConfig), partConfig.parts.length)
-    genNewDragon(key, dragonNames[Math.floor(Math.random() * 201)])
+    genNewDragon(key, dragonNames[Math.floor(Math.random() * dragonNames.length)])
 })
 
 function initBubblegum(){
